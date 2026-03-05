@@ -7,7 +7,10 @@ export class LoginPage {
   locators = {
     txt_username: () => this.page.locator('//input[@name="username"]'),
     txt_password: () => this.page.locator('//input[@name="password"]'),
-    btn_login: () => this.page.locator('//button[contains(@class,"login")]')
+    btn_login: () => this.page.locator('//button[contains(@class,"login")]'),
+    lbl_wrongPass: () => this.page.locator('//p[text()="Invalid credentials"]'),
+    lbl_requiredUser: () => this.page.locator('//input[@name="username"]/parent::div/following-sibling::span[text()="Required"]'),
+    lbl_requiredPass: () => this.page.locator('//input[@name="password"]/parent::div/following-sibling::span[text()="Required"]')
   };
 
   async goto() {
