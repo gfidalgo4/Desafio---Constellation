@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 
 export class DashboardPage {
 
@@ -15,4 +15,8 @@ export class DashboardPage {
     await this.locators.btn_logout().click();
   }
 
+  async clickMenu(menu: string) {
+    await this.page.locator(`//a[contains(@href,"${menu}")]`).click();
+    await expect(this.page.locator('//h6')).toContainText(new RegExp(menu, 'i'));
+  }
 }
