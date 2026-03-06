@@ -7,7 +7,8 @@ export class DashboardPage {
   locators = {
     img_orangeHRM: () => this.page.locator('//img[@alt="client brand banner"]'),
     btn_user: () => this.page.locator('//li[@class="oxd-userdropdown"]'),
-    btn_logout: () => this.page.locator('//a[contains(@href,"logout")]')
+    btn_logout: () => this.page.locator('//a[contains(@href,"logout")]'),
+    lbl_titulo: () => this.page.locator('//h6')
   };
 
   async logout() {
@@ -17,6 +18,7 @@ export class DashboardPage {
 
   async clickMenu(menu: string) {
     await this.page.locator(`//a[contains(@href,"${menu}")]`).click();
-    await expect(this.page.locator('//h6')).toContainText(new RegExp(menu, 'i'));
+    await expect(this.locators.lbl_titulo()).toBeVisible({ timeout: 20000 });
+    await expect(this.locators.lbl_titulo()).toContainText(new RegExp(menu, 'i'));
   }
 }

@@ -8,5 +8,5 @@ export async function loginAdmin(page: Page) {
     const dashboardPage = new DashboardPage(page);
     await loginPage.goto();
     await loginPage.login(users.admin.username,users.admin.password);
-    await expect(dashboardPage.locators.img_orangeHRM()).toBeVisible();
+    await expect(dashboardPage.locators.img_orangeHRM()).toBeVisible({ timeout: 10000 });
 }

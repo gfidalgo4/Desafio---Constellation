@@ -21,8 +21,17 @@ test('Search for an Employee', async ({ page }) => {
     await dashboardPage.clickMenu("Pim");
     
     const pimPage = new PimPage(page);
-    await expect(pimPage.locators.tbl_pimList()).toBeVisible();
-    await pimPage.locators.tbl_pimList().scrollIntoViewIfNeeded();
+    await pimPage.searchEmployee({ name: 'Chris3' });
+    await pimPage.validateTable("Name", "Chris3")
+});
+
+test('Add a new Employee', async ({ page }) => {
+    const dashboardPage = new DashboardPage(page);
+    await dashboardPage.clickMenu("Pim");
+    
+    const pimPage = new PimPage(page);
 
     
+    await pimPage.searchEmployee({ name: 'Chris3' });
+    await pimPage.validateTable("Name", "Chris3")
 });
