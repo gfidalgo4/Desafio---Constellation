@@ -124,6 +124,7 @@ async searchEmployee({ name,id,status,include,supervisor,job,unit}: {
     await this.locators.btn_save().click();
     await this.locators.lbl_successSave().waitFor();
     await expect(this.locators.lbl_successSave()).toBeVisible();
+    await this.locators.txt_firstName().waitFor({ timeout: 10000 });
     
   }
 

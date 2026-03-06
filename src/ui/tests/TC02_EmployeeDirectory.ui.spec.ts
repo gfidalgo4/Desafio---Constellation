@@ -4,36 +4,51 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { PimPage } from '../pages/PimPage';
 
 test.beforeEach(async ({ page }) => {
-  await func.loginAdmin(page);
+    await test.step('Login', async () => {
+        await func.loginAdmin(page);
+    });
 });
 
 test('Navigate to PIM', async ({ page }) => {
     const dashboardPage = new DashboardPage(page);
-    await dashboardPage.clickMenu("Pim");
+    await test.step('Menu PIM', async () => {
+        await dashboardPage.clickMenu("Pim");
+    });
     
     const pimPage = new PimPage(page);
-    await expect(pimPage.locators.tbl_pimList()).toBeVisible();
-    await pimPage.locators.tbl_pimList().scrollIntoViewIfNeeded();
+    await test.step('Validate employee list', async () => {
+        await expect(pimPage.locators.tbl_pimList()).toBeVisible();
+        await pimPage.locators.tbl_pimList().scrollIntoViewIfNeeded();
+    });
 });
 
 test('Search for an Employee', async ({ page }) => {
     const dashboardPage = new DashboardPage(page);
-    await dashboardPage.clickMenu("Pim");
+    await test.step('Menu PIM', async () => {
+        await dashboardPage.clickMenu("Pim");
+    });
     
     const pimPage = new PimPage(page);
-    await pimPage.searchEmployee({ name: 'john' });
-    await pimPage.validateTable("Name", "john")
+    await test.step('Search employee', async () => {
+        await pimPage.searchEmployee({ name: 'john' });
+        await pimPage.validateTable("Name", "john")
+    });
 });
 
 test('Add a new Employee', async ({ page }) => {
     const dashboardPage = new DashboardPage(page);
-    await dashboardPage.clickMenu("Pim");
+    await test.step('Menu PIM', async () => {
+        await dashboardPage.clickMenu("Pim");
+    });
     
     const pimPage = new PimPage(page);
-    let id = Date.toString();
-    await pimPage.addEmployee({ firstName: 'Gonçalo', lastName: 'Fidalgo' });
+    await test.step('Add employee', async () => {
+        await pimPage.addEmployee({ firstName: 'Gonçalo', lastName: 'Fidalgo' });
+    });
     
-    await dashboardPage.clickMenu("Pim");
-    await pimPage.searchEmployee({ name: "Gonçalo Fidalgo" });
-    await pimPage.deleteEmployee();
+    await test.step('Delete employee created', async () => {
+        await dashboardPage.clickMenu("Pim");
+        await pimPage.searchEmployee({ name: "Gonçalo Fidalgo" });
+        await pimPage.deleteEmployee();
+    });
 });
