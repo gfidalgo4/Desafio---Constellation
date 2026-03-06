@@ -10,9 +10,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Navigate to PIM', async ({ page }) => {
+    const menu = func.getMenu('PIM');
     const dashboardPage = new DashboardPage(page);
     await test.step('Menu PIM', async () => {
-        await dashboardPage.clickMenu("Pim");
+        await dashboardPage.navigateToMenu(menu.name,menu.path);
     });
     
     const pimPage = new PimPage(page);
@@ -23,9 +24,10 @@ test('Navigate to PIM', async ({ page }) => {
 });
 
 test('Search for an Employee', async ({ page }) => {
+    const menu = func.getMenu('PIM');
     const dashboardPage = new DashboardPage(page);
     await test.step('Menu PIM', async () => {
-        await dashboardPage.clickMenu("Pim");
+        await dashboardPage.navigateToMenu(menu.name,menu.path);
     });
     
     const pimPage = new PimPage(page);
@@ -36,9 +38,10 @@ test('Search for an Employee', async ({ page }) => {
 });
 
 test('Add a new Employee', async ({ page }) => {
+    const menu = func.getMenu('PIM');
     const dashboardPage = new DashboardPage(page);
     await test.step('Menu PIM', async () => {
-        await dashboardPage.clickMenu("Pim");
+        await dashboardPage.navigateToMenu(menu.name,menu.path);
     });
     
     const pimPage = new PimPage(page);
@@ -47,7 +50,7 @@ test('Add a new Employee', async ({ page }) => {
     });
     
     await test.step('Delete employee created', async () => {
-        await dashboardPage.clickMenu("Pim");
+        await dashboardPage.navigateToMenu(menu.name,menu.path);
         await pimPage.searchEmployee({ name: "Gonçalo Fidalgo" });
         await pimPage.deleteEmployee();
     });
