@@ -21,8 +21,8 @@ test('Search for an Employee', async ({ page }) => {
     await dashboardPage.clickMenu("Pim");
     
     const pimPage = new PimPage(page);
-    await pimPage.searchEmployee({ name: 'Chris3' });
-    await pimPage.validateTable("Name", "Chris3")
+    await pimPage.searchEmployee({ name: 'john' });
+    await pimPage.validateTable("Name", "john")
 });
 
 test('Add a new Employee', async ({ page }) => {
@@ -30,8 +30,10 @@ test('Add a new Employee', async ({ page }) => {
     await dashboardPage.clickMenu("Pim");
     
     const pimPage = new PimPage(page);
-
+    let id = Date.toString();
+    await pimPage.addEmployee({ firstName: 'Gonçalo', lastName: 'Fidalgo' });
     
-    await pimPage.searchEmployee({ name: 'Chris3' });
-    await pimPage.validateTable("Name", "Chris3")
+    await dashboardPage.clickMenu("Pim");
+    await pimPage.searchEmployee({ name: "Gonçalo Fidalgo" });
+    await pimPage.deleteEmployee();
 });
