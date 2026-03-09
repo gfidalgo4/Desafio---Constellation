@@ -50,7 +50,10 @@ export default defineConfig({
       name: 'api',
       testMatch: /.*\.api\.spec\.ts/,
       use: {
-        baseURL: 'https://reqres.in/',
+        baseURL: 'https://reqres.in/api/',
+        extraHTTPHeaders: {
+          'x-api-key': 'reqres_e7455c7699cb445994c20d8cb900a06c'
+        }
       },
     },
   ],
