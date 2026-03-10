@@ -23,6 +23,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: [
+    ['list'],
     ['html', { open: 'never', outputFolder: 'reports/html-report' }]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -50,7 +51,7 @@ export default defineConfig({
       name: 'api',
       testMatch: /.*\.api\.spec\.ts/,
       use: {
-        baseURL: 'https://reqres.in/api/',
+        baseURL: 'https://reqres.in/',
         extraHTTPHeaders: {
           'x-api-key': 'reqres_e7455c7699cb445994c20d8cb900a06c'
         }

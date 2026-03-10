@@ -1,5 +1,6 @@
-import { test, expect, APIRequestContext } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { validateTimestamp } from '../clients/Helper'
+import * as user from '../clients/Users';
 
 
 test('API001 - Verify page', async ({ request }) => {
@@ -44,13 +45,8 @@ test('API002 - Verify single user', async ({ request }) => {
 
 test('API003 - Create new user', async ({ request }) => {
 
-    const newUser = {
-        name: 'Gonçalo',
-        job: 'Engineer'
-    };
-
-    const response = await request.post('users', {
-        data: newUser
+    const response = await request.post('/api/users', {
+        data: user.newUser
     });
 
     // validar status
@@ -58,8 +54,8 @@ test('API003 - Create new user', async ({ request }) => {
 
     const body = await response.json();
 
-    expect(body.name).toBe(newUser.name);
-    expect(body.job).toBe(newUser.job);
+    expect(body.name).toBe(user.newUser.name);
+    expect(body.job).toBe(user.newUser.job);
     expect(parseInt(body.id)).toBeGreaterThan(0);
 
     validateTimestamp(body.createdAt);
@@ -69,21 +65,17 @@ test('API003 - Create new user', async ({ request }) => {
 test('API004 - Update user', async ({ request }) => {
 
     const userId = 2;
-    const updatedUser = {
-        name: 'Filipe',
-        job: 'Repair'
-    };
 
-    const response = await request.put(`users/${userId}`, {
-        data: updatedUser
+    const response = await request.put(`/api/users/${userId}`, {
+        data: user.updateUser
     });
 
     expect(response.status()).toBe(200);
 
     const body = await response.json();
 
-    expect(body.name).toBe(updatedUser.name);
-    expect(body.job).toBe(updatedUser.job);
+    expect(body.name).toBe(user.updateUser.name);
+    expect(body.job).toBe(user.updateUser.job);
     
     validateTimestamp(body.updatedAt);
 });
@@ -92,7 +84,7 @@ test('API005 - Delete user', async ({ request }) => {
 
     const userId = 2;
 
-    const response = await request.delete(`users/${userId}`);
+    const response = await request.delete(`/api/users/${userId}`);
 
     expect(response.status()).toBe(204);
 
