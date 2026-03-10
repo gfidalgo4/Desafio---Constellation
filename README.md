@@ -64,24 +64,24 @@ project-root/
 ## Setup
 
 Install dependencies:
-    - npm install
-    - npx playwright install
+- npm install
+- npx playwright install
 
 ---
 
 ## Run Tests
 
 Run all tests:
-    - npm test
-    - npx playwright test
+- npm test
+- npx playwright test
 
 Run UI tests:
-    - npm run test:ui
-    - npx playwright test --project=ui
+- npm run test:ui
+- npx playwright test --project=ui
 
 Run API tests:
-    - npm run test:api
-    - npx playwright test --project=api
+- npm run test:api
+- npx playwright test --project=api
 
 ---
 
@@ -90,8 +90,8 @@ Run API tests:
 After running tests an HTML report is generated.
 
 Open the report:
-    - npm run report
-    - npx playwright show-report
+- npm run report
+- npx playwright show-report
 
 ---
 
@@ -102,7 +102,7 @@ The project uses environment variables for configuration.
 A template file `.env.example` is provided with the required variables.
 
 Create a local `.env` file based on the template:
-    - cp .env.example .env
+- cp .env.example .env
 
 ---
 
