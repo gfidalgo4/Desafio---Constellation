@@ -1,13 +1,12 @@
 
-export const newUser = {
-    name: 'Gonçalo',
-    job: 'Engineer'
-};
+export function generateUser() {
+    const random = Math.floor(Math.random() * 10000);
 
-export const updateUser = {
-    name: 'Filipe',
-    job: 'Repair'
-};
+    return {
+        name: `user${random}`,
+        job: `qa${random}`
+    };
+}
 
 export const registerUser = {
     email: 'rachel.howell@reqres.in',
@@ -19,10 +18,10 @@ export const registerUserNoPass = {
 };
 
 export const nUsers = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 }
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 5 },
+    { id: 6 }
 ];

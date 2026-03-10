@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 /**
  * Read environment variables from file.
@@ -44,16 +47,19 @@ export default defineConfig({
         headless: false, //visualizaçao do browser
         video: 'on-first-retry', // 'retain-on-failure' - grava video se falhar
         screenshot: 'only-on-failure',    
-        baseURL: 'https://opensource-demo.orangehrmlive.com',
+        baseURL: process.env.BASE_URL,
+        //baseURL: 'https://opensource-demo.orangehrmlive.com',
       },
     },
     {
       name: 'api',
       testMatch: /.*\.api\.spec\.ts/,
       use: {
-        baseURL: 'https://reqres.in/',
+        baseURL: process.env.API_BASE_URL,
+        //baseURL: 'https://reqres.in/',
         extraHTTPHeaders: {
-          'x-api-key': 'reqres_e7455c7699cb445994c20d8cb900a06c'
+          //'x-api-key': 'reqres_e7455c7699cb445994c20d8cb900a06c'
+          'x-api-key': process.env.API_TOKEN!
         }
       },
     },

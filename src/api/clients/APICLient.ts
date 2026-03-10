@@ -24,7 +24,7 @@ export class APIClient {
     }
 
     async userDelay(delay: number) {
-        return this.request.delete(`/api/users?${delay}`);
+        return this.request.get(`/api/users?delay=${delay}`);
     }
 
     async login(data: any) {

@@ -47,15 +47,16 @@ test('API002 - Verify user', async ({ request }) => {
 
 test('API003 - Create new user', async ({ request }) => {
 
+    const userG = user.generateUser();
     const api = new APIClient(request);
-    const response = await api.createUser(user.newUser);
+    const response = await api.createUser(userG);
 
     expect(response.status()).toBe(201);
 
     const body = await response.json();
 
-    expect(body.name).toBe(user.newUser.name);
-    expect(body.job).toBe(user.newUser.job);
+    expect(body.name).toBe(userG.name);
+    expect(body.job).toBe(userG.job);
     expect(parseInt(body.id)).toBeGreaterThan(0);
     validateTimestamp(body.createdAt);
 
@@ -63,15 +64,16 @@ test('API003 - Create new user', async ({ request }) => {
 
 test('API004 - Update user', async ({ request }) => {
 
+    const userG = user.generateUser();
     const api = new APIClient(request);
-    const response = await api.updateUser(2,user.updateUser);
+    const response = await api.updateUser(2,userG);
 
     expect(response.status()).toBe(200);
 
     const body = await response.json();
 
-    expect(body.name).toBe(user.updateUser.name);
-    expect(body.job).toBe(user.updateUser.job);
+    expect(body.name).toBe(userG.name);
+    expect(body.job).toBe(userG.job);
     
     validateTimestamp(body.updatedAt);
 });
