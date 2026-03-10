@@ -41,14 +41,12 @@ export default defineConfig({
   projects: [
     {
       name: 'ui',
-      testMatch: /.*\.ui\.spec\.ts/, //sufixo para os testes UI
+      testMatch: /.*\.ui\.spec\.ts/, //sufixo tests
       use: {
-        channel: 'chrome', // usa Chrome instalado
-        headless: false, //visualizaçao do browser
-        video: 'on-first-retry', // 'retain-on-failure' - grava video se falhar
+        channel: 'chrome', // use Chrome install
+        headless: false, //visualization browser
         screenshot: 'only-on-failure',    
         baseURL: process.env.BASE_URL,
-        //baseURL: 'https://opensource-demo.orangehrmlive.com',
       },
     },
     {
@@ -56,9 +54,7 @@ export default defineConfig({
       testMatch: /.*\.api\.spec\.ts/,
       use: {
         baseURL: process.env.API_BASE_URL,
-        //baseURL: 'https://reqres.in/',
         extraHTTPHeaders: {
-          //'x-api-key': 'reqres_e7455c7699cb445994c20d8cb900a06c'
           'x-api-key': process.env.API_TOKEN!
         }
       },

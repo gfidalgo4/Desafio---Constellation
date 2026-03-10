@@ -21,7 +21,6 @@ test('API002 - Delay', async ({ request }) => {
     const delay = 3;
     const startTime = Date.now();
 
-    //const response = await request.get(`/api/users?delay=${delay}`);
     const api = new APIClient(request);
     const response = await api.userDelay(delay);
 

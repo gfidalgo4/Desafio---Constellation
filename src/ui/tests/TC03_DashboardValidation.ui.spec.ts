@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import * as func from "../../utils/UI_Helpers";
 import { DashboardPage } from '../pages/DashboardPage';
 import { menus } from '../fixtures/Menus';

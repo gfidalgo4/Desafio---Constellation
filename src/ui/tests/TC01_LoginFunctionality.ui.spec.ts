@@ -7,7 +7,7 @@ test('Successful login', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step('Login', async () => {
         await loginPage.goto();
-        await loginPage.login(users.admin.username, users.admin.password);
+        await loginPage.login(users.admin.username!, users.admin.password!);
     });
 
     const dashboardPage = new DashboardPage(page);
@@ -20,7 +20,7 @@ test('Failed login - Invalid Password', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step('Login', async () => {
         await loginPage.goto();
-        await loginPage.login(users.admin.username, "123");
+        await loginPage.login(users.admin.username!, "123");
     });
     await test.step('Invalid Password', async () => {
         await expect(loginPage.locators.lbl_wrongPass()).toBeVisible();
@@ -44,7 +44,7 @@ test('Logout', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step('Login', async () => {
         await loginPage.goto();
-        await loginPage.login(users.admin.username, users.admin.password);
+        await loginPage.login(users.admin.username!, users.admin.password!);
     });
 
     const dashboardPage = new DashboardPage(page);
