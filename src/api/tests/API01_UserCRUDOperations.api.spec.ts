@@ -6,7 +6,6 @@ import * as user from '../clients/Users';
 
 test('API001 - Verify page', async ({ request }) => {
 
-    //const response = await request.get('users?page=2');
     const api = new APIClient(request);
     const response = await api.getUsersPage(2);
 
@@ -22,10 +21,9 @@ test('API001 - Verify page', async ({ request }) => {
 
 });
 
-test('API002 - Verify single user', async ({ request }) => {
+test('API002 - Verify user', async ({ request }) => {
     const userId = 12;
 
-    //const response = await request.get(`users/${userId}`);
     const api = new APIClient(request);
     const response = await api.getUser(userId);
 
@@ -49,9 +47,6 @@ test('API002 - Verify single user', async ({ request }) => {
 
 test('API003 - Create new user', async ({ request }) => {
 
-    /* const response = await request.post('/api/users', {
-        data: user.newUser
-    });  */   
     const api = new APIClient(request);
     const response = await api.createUser(user.newUser);
 
@@ -68,9 +63,6 @@ test('API003 - Create new user', async ({ request }) => {
 
 test('API004 - Update user', async ({ request }) => {
 
-    /* const response = await request.put(`/api/users/${userId}`, {
-        data: user.updateUser
-    }); */
     const api = new APIClient(request);
     const response = await api.updateUser(2,user.updateUser);
 
@@ -92,3 +84,14 @@ test('API005 - Delete user', async ({ request }) => {
     expect(response.status()).toBe(204);
 
 });
+
+
+for (const userData of user.nUsers) {
+    test(`API006 - Get user ${userData.id}`, async ({ request }) => {
+
+        const response = await request.get(`/api/users/${userData.id}`);
+
+        expect(response.status()).toBe(200);
+
+    });
+}
