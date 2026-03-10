@@ -1,11 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { validateTimestamp } from '../clients/Helper'
+import { APIClient } from '../clients/APICLient';
 import * as user from '../clients/Users';
 
 
 test('API001 - Verify page', async ({ request }) => {
 
-    const response = await request.get('users?page=2');
+    //const response = await request.get('users?page=2');
+    const api = new APIClient(request);
+    const response = await api.getUsersPage(2);
 
     expect(response.status()).toBe(200);
 
@@ -15,7 +18,6 @@ test('API001 - Verify page', async ({ request }) => {
     expect(body.per_page).toBeGreaterThan(0);
     expect(body.total).toBeGreaterThan(0);
     expect(body.total_pages).toBeGreaterThan(0);
-
     expect(body.data.length).toBeGreaterThan(0);
 
 });
@@ -23,7 +25,9 @@ test('API001 - Verify page', async ({ request }) => {
 test('API002 - Verify single user', async ({ request }) => {
     const userId = 12;
 
-    const response = await request.get(`users/${userId}`);
+    //const response = await request.get(`users/${userId}`);
+    const api = new APIClient(request);
+    const response = await api.getUser(userId);
 
     expect(response.status()).toBe(200);
 
@@ -45,11 +49,12 @@ test('API002 - Verify single user', async ({ request }) => {
 
 test('API003 - Create new user', async ({ request }) => {
 
-    const response = await request.post('/api/users', {
+    /* const response = await request.post('/api/users', {
         data: user.newUser
-    });
+    });  */   
+    const api = new APIClient(request);
+    const response = await api.createUser(user.newUser);
 
-    // validar status
     expect(response.status()).toBe(201);
 
     const body = await response.json();
@@ -57,18 +62,17 @@ test('API003 - Create new user', async ({ request }) => {
     expect(body.name).toBe(user.newUser.name);
     expect(body.job).toBe(user.newUser.job);
     expect(parseInt(body.id)).toBeGreaterThan(0);
-
     validateTimestamp(body.createdAt);
 
 });
 
 test('API004 - Update user', async ({ request }) => {
 
-    const userId = 2;
-
-    const response = await request.put(`/api/users/${userId}`, {
+    /* const response = await request.put(`/api/users/${userId}`, {
         data: user.updateUser
-    });
+    }); */
+    const api = new APIClient(request);
+    const response = await api.updateUser(2,user.updateUser);
 
     expect(response.status()).toBe(200);
 
@@ -82,9 +86,8 @@ test('API004 - Update user', async ({ request }) => {
 
 test('API005 - Delete user', async ({ request }) => {
 
-    const userId = 2;
-
-    const response = await request.delete(`/api/users/${userId}`);
+    const api = new APIClient(request);
+    const response = await api.deleteUser(2);
 
     expect(response.status()).toBe(204);
 

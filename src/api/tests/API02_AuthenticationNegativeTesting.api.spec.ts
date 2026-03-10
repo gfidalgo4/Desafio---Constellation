@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { APIClient } from '../clients/APICLient';
 import * as user from '../clients/Users';
 
 
 test('API001 - Register user successfully', async ({ request }) => {
 
-    const response = await request.post('/api/register', {
-        data: user.registerUser
-    });
+    const api = new APIClient(request);
+    const response = await api.register(user.registerUser);
 
     expect(response.status()).toBe(200);
 
@@ -22,9 +22,8 @@ test('API001 - Register user successfully', async ({ request }) => {
 
 test('API002 - Failed  password', async ({ request }) => {
 
-    const response = await request.post('/api/register', {
-        data: user.registerUserNoPass
-    });
+    const api = new APIClient(request);
+    const response = await api.register(user.registerUserNoPass);
 
     expect(response.status()).toBe(400);
 
@@ -37,9 +36,8 @@ test('API002 - Failed  password', async ({ request }) => {
 
 test('API003 - Login', async ({ request }) => {
 
-    const response = await request.post('/api/login', {
-        data: user.registerUser
-    });
+    const api = new APIClient(request);
+    const response = await api.login(user.registerUser);
 
     expect(response.status()).toBe(200);
 
@@ -53,9 +51,8 @@ test('API003 - Login', async ({ request }) => {
 
 test('API004 - Login failed', async ({ request }) => {
 
-    const response = await request.post('/api/login', {
-         data: user.registerUserNoPass
-    });
+    const api = new APIClient(request);
+    const response = await api.login(user.registerUserNoPass);
 
     expect(response.status()).toBe(400);
 
